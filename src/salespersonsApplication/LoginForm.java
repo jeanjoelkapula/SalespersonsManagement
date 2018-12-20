@@ -213,7 +213,7 @@ public class LoginForm extends javax.swing.JFrame {
             loginLabel.setText("Incorrect credentials");
 
         } else {
-            MainPage home = new MainPage();
+            Home home = new Home();
             this.dispose();
             home.pack();
             home.setVisible(true);

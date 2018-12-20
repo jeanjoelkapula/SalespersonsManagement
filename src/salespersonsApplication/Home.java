@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package salespersonsApplication;
 
 import java.awt.Color;
@@ -15,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jean Joel
  */
-public class MainPage extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame {
 
     //side panel colors
     Color selectedPanelColor = new Color(77, 19, 209);
@@ -24,7 +20,7 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public MainPage() {
+    public Home() {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -42,7 +38,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         sidePanelList = new javax.swing.JPanel();
-        listLabel = new javax.swing.JLabel();
+        salespersonsListLabel = new javax.swing.JLabel();
         sidePanelAdd = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         sidePanelFigures = new javax.swing.JPanel();
@@ -80,12 +76,12 @@ public class MainPage extends javax.swing.JFrame {
         sidePanelList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         sidePanelList.setForeground(new java.awt.Color(255, 255, 255));
 
-        listLabel.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
-        listLabel.setForeground(new java.awt.Color(255, 255, 255));
-        listLabel.setText("Salesperson List");
-        listLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        salespersonsListLabel.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        salespersonsListLabel.setForeground(new java.awt.Color(255, 255, 255));
+        salespersonsListLabel.setText("Salesperson List");
+        salespersonsListLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listLabelMouseClicked(evt);
+                salespersonsListLabelMouseClicked(evt);
             }
         });
 
@@ -95,14 +91,14 @@ public class MainPage extends javax.swing.JFrame {
             sidePanelListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelListLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(listLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(salespersonsListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidePanelListLayout.setVerticalGroup(
             sidePanelListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelListLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(listLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(salespersonsListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         sidePanelAdd.setBackground(new java.awt.Color(58, 83, 155));
@@ -222,11 +218,6 @@ public class MainPage extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
@@ -496,35 +487,36 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void minLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minLabelMouseClicked
-        // TODO add your handling code here:
+        
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_minLabelMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
+        
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void listLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listLabelMouseClicked
-        
-        //switch color
+    private void salespersonsListLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salespersonsListLabelMouseClicked
+
+        //Set Side Panel Color 
         sidePanelList.setBackground(selectedPanelColor);
         sidePanelAdd.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelUpdate.setBackground(unselectedPanelColor);
 
+        //set main main screen subheading label and switch layered pane panel
         listPanelHeading.setText("Salespersons List");
         jLayeredPane1.removeAll();
         jLayeredPane1.add(salespersonsListPanel);
         this.repaint();
         this.revalidate();
 
-    }//GEN-LAST:event_listLabelMouseClicked
+    }//GEN-LAST:event_salespersonsListLabelMouseClicked
 
     private void sidePanelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelAddMouseClicked
-        
-        //set panel color
+
+        //set sided panel color
         sidePanelAdd.setBackground(selectedPanelColor);
         sidePanelList.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
@@ -535,7 +527,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_sidePanelAddMouseClicked
 
     private void sidePanelFiguresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelFiguresMouseClicked
-        
+
         //set Panel Color
         sidePanelFigures.setBackground(selectedPanelColor);
         sidePanelAdd.setBackground(unselectedPanelColor);
@@ -543,6 +535,7 @@ public class MainPage extends javax.swing.JFrame {
         sidePanelList.setBackground(unselectedPanelColor);
         sidePanelUpdate.setBackground(unselectedPanelColor);
 
+        //set main main screen subheading label and switch layered pane panel
         figuresPanelHeading.setText("Sales Figures");
         jLayeredPane1.removeAll();
         jLayeredPane1.add(salesFiguresPanel);
@@ -551,7 +544,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_sidePanelFiguresMouseClicked
 
     private void sidePanelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelDeleteMouseClicked
-        
+
         //set panel color
         sidePanelDelete.setBackground(selectedPanelColor);
         sidePanelAdd.setBackground(unselectedPanelColor);
@@ -561,7 +554,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_sidePanelDeleteMouseClicked
 
     private void sidePanelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelUpdateMouseClicked
-        
+
         //set panel Color
         sidePanelUpdate.setBackground(selectedPanelColor);
         sidePanelAdd.setBackground(unselectedPanelColor);
@@ -569,19 +562,6 @@ public class MainPage extends javax.swing.JFrame {
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
     }//GEN-LAST:event_sidePanelUpdateMouseClicked
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        // TODO add your handling code here:
-        int selection;
-
-        selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
-        if (selection == JOptionPane.YES_OPTION) {
-
-            LoginForm login = new LoginForm();
-            this.dispose();
-            login.setVisible(true);
-        }
-    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -600,20 +580,21 @@ public class MainPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage().setVisible(true);
+                new Home().setVisible(true);
             }
         });
     }
@@ -635,10 +616,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JLabel listLabel;
     private javax.swing.JLabel listPanelHeading;
     private javax.swing.JLabel minLabel;
     private javax.swing.JPanel salesFiguresPanel;
+    private javax.swing.JLabel salespersonsListLabel;
     private javax.swing.JPanel salespersonsListPanel;
     private javax.swing.JTable salespersonsListTable;
     private javax.swing.JTable salespersonsListTable2;
