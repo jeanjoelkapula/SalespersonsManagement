@@ -1,5 +1,7 @@
-
 package salespersonsApplication;
+
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -7,12 +9,17 @@ package salespersonsApplication;
  */
 public class AddSalespersonForm extends javax.swing.JFrame {
 
+    //declaration
+    Home mainPage;
+    String errorMessage = "";
+
     /**
      * Creates new form AddSalespersonForm
      */
-    public AddSalespersonForm() {
+    public AddSalespersonForm(Home home) {
         initComponents();
         setLocationRelativeTo(null);
+        mainPage = home;
     }
 
     /**
@@ -24,14 +31,10 @@ public class AddSalespersonForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        IDField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -42,19 +45,12 @@ public class AddSalespersonForm extends javax.swing.JFrame {
         salesAmountField = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("ID Number:");
-
-        jTextField3.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(51, 0, 255));
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51)));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
 
@@ -79,7 +75,7 @@ public class AddSalespersonForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(21, 21, 21))
         );
@@ -91,14 +87,6 @@ public class AddSalespersonForm extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("ID Number:");
-
-        IDField.setBackground(new java.awt.Color(0, 0, 51));
-        IDField.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        IDField.setForeground(new java.awt.Color(0, 255, 255));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -139,6 +127,11 @@ public class AddSalespersonForm extends javax.swing.JFrame {
         addButton.setText("Add Salesperson");
         addButton.setBorder(null);
         addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,25 +150,19 @@ public class AddSalespersonForm extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                            .addComponent(firstNameField)
+                            .addComponent(firstNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                             .addComponent(lastNameField)
                             .addComponent(telephoneField)
                             .addComponent(salesAmountField))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,9 +179,9 @@ public class AddSalespersonForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salesAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 380));
@@ -203,9 +190,104 @@ public class AddSalespersonForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // Declarations
+        int ID = 0;
+        String firstName;
+        String lastName;
+        String telephone;
+        double salesAmount = 0;
+        errorMessage = "";
+
+        if (checkEmptyFields() == true) {
+            JOptionPane.showMessageDialog(null, "All fields must be complete.");
+
+        } else {
+
+            firstName = firstNameField.getText().trim();
+            lastName = lastNameField.getText().trim();
+
+            telephone = telephoneField.getText().trim();
+            
+            //validate telephoned field content
+            if (telephone.trim().length() == 12) {
+                if (!telephone.substring(0, 3).equals("+27")) {
+                    accumulateErrorMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
+                }
+            } else {
+                accumulateErrorMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
+            }
+
+            //validate sales amount field content
+            boolean valid = true;
+
+            for (int index = 0; index < salesAmountField.getText().length() && valid == true; index++) {
+                char c = salesAmountField.getText().charAt(index);
+                if (!Character.isDigit(c)) {
+                    valid = false;
+                    accumulateErrorMessage("\n* The sales amount field can only contain digits");
+                } else {
+                    salesAmount = Double.parseDouble(salesAmountField.getText());
+                }
+            }
+
+            if (isInputValid()) {
+                telephone = mainPage.formatTelephone(telephone);
+                mainPage.addRecord(firstName, lastName, telephone, salesAmount);
+                CompletedWindow completed = new CompletedWindow();
+                completed.setVisible(true);
+
+                //clear fields
+                firstNameField.setText("");
+                lastNameField.setText("");
+                telephoneField.setText("");
+                salesAmountField.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    public boolean checkEmptyFields() {
+
+        boolean isNull = false;
+
+        if (firstNameField.getText().equals("")) {
+            isNull = true;
+        }
+
+        if (lastNameField.getText().equals("")) {
+            isNull = true;
+        }
+
+        if (telephoneField.getText().equals("")) {
+            isNull = true;
+        }
+        if (salesAmountField.getText().equals("")) {
+            isNull = true;
+        }
+
+        return isNull;
+    }
+
+    public void accumulateErrorMessage(String message) {
+
+        errorMessage += message;
+    }
+
+    public boolean isInputValid() {
+
+        boolean valid = false;
+        if (errorMessage.equals("")) {
+            valid = true;
+        }
+        return valid;
+    }
 
     /**
      * @param args the command line arguments
@@ -237,26 +319,22 @@ public class AddSalespersonForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddSalespersonForm().setVisible(true);
+                //new AddSalespersonForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField IDField;
     private javax.swing.JButton addButton;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JTextField salesAmountField;
     private javax.swing.JTextField telephoneField;

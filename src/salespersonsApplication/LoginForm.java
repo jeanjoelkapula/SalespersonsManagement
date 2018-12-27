@@ -208,7 +208,7 @@ public class LoginForm extends javax.swing.JFrame {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-        if (!password.equalsIgnoreCase("admin") && !username.equalsIgnoreCase("admin")) {
+        if (!password.equalsIgnoreCase("admin") || !username.equalsIgnoreCase("admin")) {
             loginLabel.setForeground(new Color(255, 0, 0));
             loginLabel.setText("Incorrect credentials");
 

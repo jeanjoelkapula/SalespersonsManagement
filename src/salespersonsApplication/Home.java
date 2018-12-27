@@ -1,10 +1,16 @@
-
 package salespersonsApplication;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,10 +18,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Jean Joel
  */
 public class Home extends javax.swing.JFrame {
- 
+
+    //declarations
+    private ArrayList<Salesperson> salespersonsList = new ArrayList();
+    private int salespersonsCounter = 0;
+    private DefaultTableModel listModel;
+    private DefaultTableModel figuresModel;
+
     //side panel colors
-    Color selectedPanelColor = new Color(77, 19, 209);
-    Color unselectedPanelColor = new Color(58, 83, 155);
+    private Color selectedPanelColor = new Color(77, 19, 209);
+    private Color unselectedPanelColor = new Color(58, 83, 155);
 
     /**
      * Creates new form MainPage
@@ -23,7 +35,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
-
+        readSalespersonsFile();
     }
 
     /**
@@ -61,7 +73,7 @@ public class Home extends javax.swing.JFrame {
         listPanelHeading = new javax.swing.JLabel();
         salesFiguresPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        salespersonsListTable2 = new javax.swing.JTable();
+        salesFiguresTable = new javax.swing.JTable();
         figuresPanelHeading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -330,7 +342,6 @@ public class Home extends javax.swing.JFrame {
 
         salespersonsListPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        salespersonsListTable.setAutoCreateRowSorter(true);
         salespersonsListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -365,6 +376,7 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        salespersonsListTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(salespersonsListTable);
 
         listPanelHeading.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
@@ -393,8 +405,7 @@ public class Home extends javax.swing.JFrame {
 
         salesFiguresPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        salespersonsListTable2.setAutoCreateRowSorter(true);
-        salespersonsListTable2.setModel(new javax.swing.table.DefaultTableModel(
+        salesFiguresTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -428,8 +439,10 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        salespersonsListTable2.setColumnSelectionAllowed(true);
-        jScrollPane4.setViewportView(salespersonsListTable2);
+        salesFiguresTable.setColumnSelectionAllowed(true);
+        salesFiguresTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(salesFiguresTable);
+        salesFiguresTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         figuresPanelHeading.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
         figuresPanelHeading.setText("Salespersons List");
@@ -485,15 +498,87 @@ public class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Loads data from file into the array, list and figures table
+     */
+    private void readSalespersonsFile() {
+
+        //declarations
+        int ID;
+        String firstName;
+        String lastName;
+        String telephone;
+        double salesAmount;
+        String line;
+        String[] fields;
+
+        //default table model assignment 
+        listModel = (DefaultTableModel) salespersonsListTable.getModel();
+        figuresModel = (DefaultTableModel) salesFiguresTable.getModel();
+
+        try {
+            //File objects declarations
+            FileReader file = new FileReader("SalespersonsList.txt");
+            BufferedReader reader = new BufferedReader(file);
+
+            line = reader.readLine();
+            while (line != null) {
+
+                //assign salesperson's fields
+                fields = line.split(",");
+                ID = Integer.parseInt(fields[0].trim());
+                firstName = fields[1].trim();
+                lastName = fields[2].trim();
+                if (isTelephoneFormatted(fields[3].trim())) {
+                    telephone = fields[3].trim();
+                } else {
+                    telephone = formatTelephone(fields[3].trim());
+                }
+                salesAmount = Double.parseDouble(fields[4].trim());
+
+                //populate ArrayList, salesperson list and sales figures tables
+                salespersonsList.add(new Salesperson(ID, firstName, lastName, telephone, salesAmount));
+                checkTablesListCount();
+
+                //set salesperons list table row
+                setRow(salespersonsCounter, ID, firstName, lastName, telephone);
+
+                //set sales figures table row
+                setRow(salespersonsCounter, ID, lastName, salesAmount);
+
+                ++salespersonsCounter;
+                line = reader.readLine();
+
+            }
+            salespersonsListTable.setModel(listModel);
+            salesFiguresTable.setModel(figuresModel);
+
+            reader.close();
+
+        } catch (IOException error) {
+
+            JOptionPane.showMessageDialog(null, error.getMessage());
+        }
+
+    }
+
 
     private void minLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minLabelMouseClicked
-        
+
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_minLabelMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        
-        System.exit(0);
+        //declaration
+        int confirmation;
+
+        confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the program?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            writeToFile();
+            System.exit(0);
+
+        }
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void salespersonsListLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salespersonsListLabelMouseClicked
@@ -523,7 +608,8 @@ public class Home extends javax.swing.JFrame {
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelUpdate.setBackground(unselectedPanelColor);
 
-
+        AddSalespersonForm add = new AddSalespersonForm(this);
+        add.setVisible(true);
     }//GEN-LAST:event_sidePanelAddMouseClicked
 
     private void sidePanelFiguresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelFiguresMouseClicked
@@ -562,6 +648,115 @@ public class Home extends javax.swing.JFrame {
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
     }//GEN-LAST:event_sidePanelUpdateMouseClicked
+
+    public ArrayList<Salesperson> getSalespersonsList() {
+        return salespersonsList;
+    }
+
+    public boolean isTelephoneFormatted(String telephone) {
+
+        //declaration
+        boolean formatted = false;
+        int digitsNumber = 15;
+
+        if (telephone.length() == digitsNumber) {
+            if (telephone.charAt(3) == ' ' && telephone.charAt(6) == ' ' && telephone.charAt(10) == ' ') {
+                formatted = true;
+            }
+
+        }
+        return formatted;
+
+    }
+
+    public String formatTelephone(String number) {
+
+        //declaration
+        StringBuilder phone = new StringBuilder(number);
+
+        phone.insert(3, " ");
+        phone.insert(6, " ");
+        phone.insert(10, " ");
+
+        return phone.toString();
+    }
+
+    public void checkTablesListCount() {
+        if (salespersonsListTable.getRowCount() == getSalespersonsList().size() - 1) {
+            figuresModel.setRowCount(getSalespersonsList().size() + 5);
+            listModel.setRowCount(getSalespersonsList().size() + 5);
+
+        }
+    }
+
+    public void addRecord(String firstName, String lastName, String telephone, double salesAmount) {
+        int ID = generateID();
+        salespersonsList.add(new Salesperson(ID, firstName, lastName, telephone, salesAmount));
+        checkTablesListCount();
+        setRow(salespersonsCounter, ID, firstName, lastName, telephone);
+        setRow(salespersonsCounter, ID, lastName, salesAmount);
+        salespersonsListTable.setModel(listModel);
+        salesFiguresTable.setModel(figuresModel);
+        ++salespersonsCounter;
+    }
+
+    public int generateID() {
+
+        return salespersonsList.get(salespersonsList.size() - 1).getID() + 1;
+    }
+
+    public void setRow(int row, int ID, String firstName, String lastName, String telephone) {
+        listModel.setValueAt(ID, row, 0);
+        listModel.setValueAt(firstName, row, 1);
+        listModel.setValueAt(lastName, row, 2);
+        listModel.setValueAt(telephone, row, 3);
+
+    }
+
+    public void setRow(int row, int ID, String lastName, double salesAmount) {
+
+        figuresModel.setValueAt(ID, row, 0);
+        figuresModel.setValueAt(lastName, row, 1);
+        figuresModel.setValueAt(salesAmount, row, 2);
+    }
+
+    /**
+     * Returns the subsequent ID number in the list
+     *
+     * @return
+     */
+    public void writeToFile() {
+
+        try {
+            //File objects
+            FileWriter file = new FileWriter("SalespersonsList.txt");
+            BufferedWriter writer = new BufferedWriter(file);
+
+            //variable declarations
+            String line = "";
+            String separator = ",";
+            int ID;
+            String firstName;
+            String lastName;
+            String telephone;
+            double salesAmount;
+
+            for (int index = 0; index < salespersonsList.size(); index++) {
+                ID = salespersonsList.get(index).getID();
+                firstName = salespersonsList.get(index).getFirstName();
+                lastName = salespersonsList.get(index).getLastName();
+                telephone = salespersonsList.get(index).getTelephone();
+                salesAmount = salespersonsList.get(index).getSalesAmount();
+                line = ID + separator + firstName + separator + lastName + separator + telephone + separator + salesAmount;
+                writer.write(line, 0, line.length());
+                writer.newLine();
+            }
+
+            writer.close();
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(null, error.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -619,14 +814,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel listPanelHeading;
     private javax.swing.JLabel minLabel;
     private javax.swing.JPanel salesFiguresPanel;
+    private javax.swing.JTable salesFiguresTable;
     private javax.swing.JLabel salespersonsListLabel;
     private javax.swing.JPanel salespersonsListPanel;
     private javax.swing.JTable salespersonsListTable;
-    private javax.swing.JTable salespersonsListTable2;
     private javax.swing.JPanel sidePanelAdd;
     private javax.swing.JPanel sidePanelDelete;
     private javax.swing.JPanel sidePanelFigures;
     private javax.swing.JPanel sidePanelList;
     private javax.swing.JPanel sidePanelUpdate;
     // End of variables declaration//GEN-END:variables
+
 }
