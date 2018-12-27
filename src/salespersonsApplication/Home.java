@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Jean Joel
  */
 public class Home extends javax.swing.JFrame {
-
+ 
     //side panel colors
     Color selectedPanelColor = new Color(77, 19, 209);
     Color unselectedPanelColor = new Color(58, 83, 155);
