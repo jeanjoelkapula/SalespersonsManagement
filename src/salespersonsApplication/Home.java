@@ -723,7 +723,6 @@ public class Home extends javax.swing.JFrame {
     /**
      * Returns the subsequent ID number in the list
      *
-     * @return
      */
     public void writeToFile() {
 
