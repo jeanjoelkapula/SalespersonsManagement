@@ -35,17 +35,32 @@ public class Salesperson {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getTelephone() {
         return telephone;
     }
 
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     public double getSalesAmount() {
         return salesAmount;
     }
 
-    
+    public void setSalesAmount(double salesAmount) {
+        this.salesAmount = salesAmount;
+    }
+
 }

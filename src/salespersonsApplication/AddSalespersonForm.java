@@ -10,16 +10,15 @@ import javax.swing.JOptionPane;
 public class AddSalespersonForm extends javax.swing.JFrame {
 
     //declaration
-    Home mainPage;
-    String errorMessage = "";
+    HomeScreen mainScreen;
 
     /**
      * Creates new form AddSalespersonForm
      */
-    public AddSalespersonForm(Home home) {
+    public AddSalespersonForm(HomeScreen home) {
         initComponents();
         setLocationRelativeTo(null);
-        mainPage = home;
+        mainScreen = home;
     }
 
     /**
@@ -194,100 +193,30 @@ public class AddSalespersonForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+
         // Declarations
-        int ID = 0;
+        InputValidation validation = new InputValidation(firstNameField, lastNameField, telephoneField, salesAmountField);
         String firstName;
         String lastName;
         String telephone;
-        double salesAmount = 0;
-        errorMessage = "";
+        double salesAmount;
 
-        if (checkEmptyFields() == true) {
-            JOptionPane.showMessageDialog(null, "All fields must be complete.");
-
-        } else {
-
+        if (validation.isInputValid()) {
             firstName = firstNameField.getText().trim();
             lastName = lastNameField.getText().trim();
-
             telephone = telephoneField.getText().trim();
-            
-            //validate telephoned field content
-            if (telephone.trim().length() == 12) {
-                if (!telephone.substring(0, 3).equals("+27")) {
-                    accumulateErrorMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
-                }
-            } else {
-                accumulateErrorMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
-            }
+            salesAmount = Double.parseDouble(salesAmountField.getText().trim());
 
-            //validate sales amount field content
-            boolean valid = true;
-
-            for (int index = 0; index < salesAmountField.getText().length() && valid == true; index++) {
-                char c = salesAmountField.getText().charAt(index);
-                if (!Character.isDigit(c)) {
-                    valid = false;
-                    accumulateErrorMessage("\n* The sales amount field can only contain digits");
-                } else {
-                    salesAmount = Double.parseDouble(salesAmountField.getText());
-                }
-            }
-
-            if (isInputValid()) {
-                telephone = mainPage.formatTelephone(telephone);
-                mainPage.addRecord(firstName, lastName, telephone, salesAmount);
-                CompletedWindow completed = new CompletedWindow();
-                completed.setVisible(true);
-
-                //clear fields
-                firstNameField.setText("");
-                lastNameField.setText("");
-                telephoneField.setText("");
-                salesAmountField.setText("");
-
-            } else {
-                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            }
+            mainScreen.addRecord(firstName, lastName, telephone, salesAmount);
+            CompletedWindow completed = new CompletedWindow();
+            firstNameField.setText("");
+            lastNameField.setText("");
+            telephoneField.setText("");
+            completed.setVisible(true);
+        } else {
+            validation.displayErrorMessage();
         }
-
     }//GEN-LAST:event_addButtonActionPerformed
-
-    public boolean checkEmptyFields() {
-
-        boolean isNull = false;
-
-        if (firstNameField.getText().equals("")) {
-            isNull = true;
-        }
-
-        if (lastNameField.getText().equals("")) {
-            isNull = true;
-        }
-
-        if (telephoneField.getText().equals("")) {
-            isNull = true;
-        }
-        if (salesAmountField.getText().equals("")) {
-            isNull = true;
-        }
-
-        return isNull;
-    }
-
-    public void accumulateErrorMessage(String message) {
-
-        errorMessage += message;
-    }
-
-    public boolean isInputValid() {
-
-        boolean valid = false;
-        if (errorMessage.equals("")) {
-            valid = true;
-        }
-        return valid;
-    }
 
     /**
      * @param args the command line arguments

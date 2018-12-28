@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,13 +20,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jean Joel
  */
-public class Home extends javax.swing.JFrame {
+public class HomeScreen extends javax.swing.JFrame {
 
     //declarations
     private ArrayList<Salesperson> salespersonsList = new ArrayList();
     private int salespersonsCounter = 0;
+    private double totalSales = 0;
     private DefaultTableModel listModel;
     private DefaultTableModel figuresModel;
+    NumberFormat nf = NumberFormat.getCurrencyInstance();
+    DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+    SearchForm searchForm;
+    private boolean isDeletePanelSelected = false;
+    private boolean isEditPanelSelected = false;
 
     //side panel colors
     private Color selectedPanelColor = new Color(77, 19, 209);
@@ -32,10 +41,15 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public Home() {
+    public HomeScreen() {
         initComponents();
         setLocationRelativeTo(null);
         readSalespersonsFile();
+        dfs.setCurrencySymbol("$");
+        dfs.setGroupingSeparator(' ');
+        dfs.setDecimalSeparator('.');
+        ((DecimalFormat) (nf)).setDecimalFormatSymbols(dfs);
+        searchForm = new SearchForm(this);
     }
 
     /**
@@ -57,7 +71,7 @@ public class Home extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         sidePanelDelete = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        sidePanelUpdate = new javax.swing.JPanel();
+        sidePanelEdit = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -75,6 +89,8 @@ public class Home extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         salesFiguresTable = new javax.swing.JTable();
         figuresPanelHeading = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        totalSalesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -87,15 +103,15 @@ public class Home extends javax.swing.JFrame {
         sidePanelList.setBackground(new java.awt.Color(77, 19, 209));
         sidePanelList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         sidePanelList.setForeground(new java.awt.Color(255, 255, 255));
+        sidePanelList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sidePanelListMouseClicked(evt);
+            }
+        });
 
         salespersonsListLabel.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         salespersonsListLabel.setForeground(new java.awt.Color(255, 255, 255));
         salespersonsListLabel.setText("Salesperson List");
-        salespersonsListLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salespersonsListLabelMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout sidePanelListLayout = new javax.swing.GroupLayout(sidePanelList);
         sidePanelList.setLayout(sidePanelListLayout);
@@ -202,30 +218,30 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        sidePanelUpdate.setBackground(new java.awt.Color(58, 83, 155));
-        sidePanelUpdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        sidePanelUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        sidePanelUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+        sidePanelEdit.setBackground(new java.awt.Color(58, 83, 155));
+        sidePanelEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        sidePanelEdit.setForeground(new java.awt.Color(255, 255, 255));
+        sidePanelEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sidePanelUpdateMouseClicked(evt);
+                sidePanelEditMouseClicked(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Update Salespersons Info");
+        jLabel10.setText("Edit Salespersons Info");
 
-        javax.swing.GroupLayout sidePanelUpdateLayout = new javax.swing.GroupLayout(sidePanelUpdate);
-        sidePanelUpdate.setLayout(sidePanelUpdateLayout);
-        sidePanelUpdateLayout.setHorizontalGroup(
-            sidePanelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidePanelUpdateLayout.createSequentialGroup()
+        javax.swing.GroupLayout sidePanelEditLayout = new javax.swing.GroupLayout(sidePanelEdit);
+        sidePanelEdit.setLayout(sidePanelEditLayout);
+        sidePanelEditLayout.setHorizontalGroup(
+            sidePanelEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidePanelEditLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        sidePanelUpdateLayout.setVerticalGroup(
-            sidePanelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        sidePanelEditLayout.setVerticalGroup(
+            sidePanelEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -235,6 +251,11 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
         jLabel2.setText("Log out");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salespersonsApplication/images/icons8_Male_User_50px.png"))); // NOI18N
         jLabel11.setText("  ");
@@ -263,7 +284,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(sidePanelList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sidePanelAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sidePanelDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(sidePanelUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidePanelEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sidePanelFigures, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -282,7 +303,7 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sidePanelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sidePanelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sidePanelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -447,6 +468,13 @@ public class Home extends javax.swing.JFrame {
         figuresPanelHeading.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
         figuresPanelHeading.setText("Salespersons List");
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Total Sales:");
+
+        totalSalesLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        totalSalesLabel.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout salesFiguresPanelLayout = new javax.swing.GroupLayout(salesFiguresPanel);
         salesFiguresPanel.setLayout(salesFiguresPanelLayout);
         salesFiguresPanelLayout.setHorizontalGroup(
@@ -455,6 +483,12 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(figuresPanelHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+            .addGroup(salesFiguresPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalSalesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         salesFiguresPanelLayout.setVerticalGroup(
             salesFiguresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,7 +497,11 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(figuresPanelHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(salesFiguresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalSalesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jLayeredPane1.add(salesFiguresPanel, "card4");
@@ -529,7 +567,7 @@ public class Home extends javax.swing.JFrame {
                 ID = Integer.parseInt(fields[0].trim());
                 firstName = fields[1].trim();
                 lastName = fields[2].trim();
-                if (isTelephoneFormatted(fields[3].trim())) {
+                if (isTelephoneFormatted(fields[3])) {
                     telephone = fields[3].trim();
                 } else {
                     telephone = formatTelephone(fields[3].trim());
@@ -547,12 +585,13 @@ public class Home extends javax.swing.JFrame {
                 setRow(salespersonsCounter, ID, lastName, salesAmount);
 
                 ++salespersonsCounter;
+                totalSales += salesAmount;
                 line = reader.readLine();
 
             }
             salespersonsListTable.setModel(listModel);
             salesFiguresTable.setModel(figuresModel);
-
+            totalSalesLabel.setText(nf.format(totalSales));
             reader.close();
 
         } catch (IOException error) {
@@ -581,24 +620,6 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void salespersonsListLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salespersonsListLabelMouseClicked
-
-        //Set Side Panel Color 
-        sidePanelList.setBackground(selectedPanelColor);
-        sidePanelAdd.setBackground(unselectedPanelColor);
-        sidePanelFigures.setBackground(unselectedPanelColor);
-        sidePanelDelete.setBackground(unselectedPanelColor);
-        sidePanelUpdate.setBackground(unselectedPanelColor);
-
-        //set main main screen subheading label and switch layered pane panel
-        listPanelHeading.setText("Salespersons List");
-        jLayeredPane1.removeAll();
-        jLayeredPane1.add(salespersonsListPanel);
-        this.repaint();
-        this.revalidate();
-
-    }//GEN-LAST:event_salespersonsListLabelMouseClicked
-
     private void sidePanelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelAddMouseClicked
 
         //set sided panel color
@@ -606,7 +627,7 @@ public class Home extends javax.swing.JFrame {
         sidePanelList.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
         sidePanelDelete.setBackground(unselectedPanelColor);
-        sidePanelUpdate.setBackground(unselectedPanelColor);
+        sidePanelEdit.setBackground(unselectedPanelColor);
 
         AddSalespersonForm add = new AddSalespersonForm(this);
         add.setVisible(true);
@@ -619,9 +640,9 @@ public class Home extends javax.swing.JFrame {
         sidePanelAdd.setBackground(unselectedPanelColor);
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelList.setBackground(unselectedPanelColor);
-        sidePanelUpdate.setBackground(unselectedPanelColor);
+        sidePanelEdit.setBackground(unselectedPanelColor);
 
-        //set main main screen subheading label and switch layered pane panel
+        //set main main screen subheading label and switch panel
         figuresPanelHeading.setText("Sales Figures");
         jLayeredPane1.removeAll();
         jLayeredPane1.add(salesFiguresPanel);
@@ -636,21 +657,73 @@ public class Home extends javax.swing.JFrame {
         sidePanelAdd.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
         sidePanelList.setBackground(unselectedPanelColor);
-        sidePanelUpdate.setBackground(unselectedPanelColor);
+        sidePanelEdit.setBackground(unselectedPanelColor);
+
+        setDeletePanelSelected(true);
+        setEditPanelSelected(false);
+        searchForm.setVisible(true);
+
     }//GEN-LAST:event_sidePanelDeleteMouseClicked
 
-    private void sidePanelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelUpdateMouseClicked
+    private void sidePanelEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelEditMouseClicked
 
         //set panel Color
-        sidePanelUpdate.setBackground(selectedPanelColor);
+        sidePanelEdit.setBackground(selectedPanelColor);
         sidePanelAdd.setBackground(unselectedPanelColor);
         sidePanelList.setBackground(unselectedPanelColor);
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelFigures.setBackground(unselectedPanelColor);
-    }//GEN-LAST:event_sidePanelUpdateMouseClicked
+
+        setEditPanelSelected(true);
+        setDeletePanelSelected(false);
+        searchForm.setVisible(true);
+        searchForm.getSearchField().setText("");
+    }//GEN-LAST:event_sidePanelEditMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        writeToFile();
+        this.dispose();
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void sidePanelListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelListMouseClicked
+
+        //Set Side Panel Color 
+        sidePanelList.setBackground(selectedPanelColor);
+        sidePanelAdd.setBackground(unselectedPanelColor);
+        sidePanelFigures.setBackground(unselectedPanelColor);
+        sidePanelDelete.setBackground(unselectedPanelColor);
+        sidePanelEdit.setBackground(unselectedPanelColor);
+
+        //set main main screen subheading label and switch layered pane panel
+        listPanelHeading.setText("Salespersons List");
+        jLayeredPane1.removeAll();
+        jLayeredPane1.add(salespersonsListPanel);
+        this.repaint();
+        this.revalidate();
+
+    }//GEN-LAST:event_sidePanelListMouseClicked
 
     public ArrayList<Salesperson> getSalespersonsList() {
         return salespersonsList;
+    }
+
+    public boolean isSidePanelDeleteSelected() {
+        return isDeletePanelSelected;
+    }
+
+    public void setDeletePanelSelected(boolean value) {
+        isDeletePanelSelected = value;
+    }
+
+    public boolean isSidePanelEditSelected() {
+        return isEditPanelSelected;
+    }
+
+    public void setEditPanelSelected(boolean value) {
+        isEditPanelSelected = value;
     }
 
     public boolean isTelephoneFormatted(String telephone) {
@@ -681,6 +754,18 @@ public class Home extends javax.swing.JFrame {
         return phone.toString();
     }
 
+    public String removeTelephoneFormat(String number) {
+        //declaration
+        StringBuilder phone = new StringBuilder(number);
+
+        phone.deleteCharAt(3);
+        phone.deleteCharAt(5);
+        phone.deleteCharAt(8);
+
+        return phone.toString();
+
+    }
+
     public void checkTablesListCount() {
         if (salespersonsListTable.getRowCount() == getSalespersonsList().size() - 1) {
             figuresModel.setRowCount(getSalespersonsList().size() + 5);
@@ -697,7 +782,42 @@ public class Home extends javax.swing.JFrame {
         setRow(salespersonsCounter, ID, lastName, salesAmount);
         salespersonsListTable.setModel(listModel);
         salesFiguresTable.setModel(figuresModel);
+        totalSales += salesAmount;
+        totalSalesLabel.setText(nf.format(totalSales));
         ++salespersonsCounter;
+
+    }
+
+    public void deleteRecord(int position) {
+        totalSales -= salespersonsList.get(position).getSalesAmount();
+        salespersonsList.remove(position);
+        listModel.removeRow(position);
+        figuresModel.removeRow(position);
+        salespersonsListTable.setModel(listModel);
+        salesFiguresTable.setModel(figuresModel);
+        totalSalesLabel.setText(nf.format(totalSales));
+        --salespersonsCounter;
+
+    }
+
+    public void editRecord(int position, String firstName, String lastName, String telephone, double newSalesAmount) {
+        int ID = salespersonsList.get(position).getID();
+        double currentSalesAmount = salespersonsList.get(position).getSalesAmount();
+        salespersonsList.get(position).setFirstName(firstName);
+        salespersonsList.get(position).setLastName(lastName);
+        salespersonsList.get(position).setTelephone(formatTelephone(telephone));
+        salespersonsList.get(position).setSalesAmount(newSalesAmount);
+        setRow(position, ID, firstName, lastName, telephone);
+        setRow(position, ID, lastName, newSalesAmount);
+        if (currentSalesAmount > newSalesAmount) {
+            totalSales -= currentSalesAmount - newSalesAmount;
+        } else {
+            totalSales += newSalesAmount - currentSalesAmount;
+        }
+
+        salespersonsListTable.setModel(listModel);
+        salesFiguresTable.setModel(figuresModel);
+        totalSalesLabel.setText(nf.format(totalSales));
     }
 
     public int generateID() {
@@ -717,7 +837,7 @@ public class Home extends javax.swing.JFrame {
 
         figuresModel.setValueAt(ID, row, 0);
         figuresModel.setValueAt(lastName, row, 1);
-        figuresModel.setValueAt(salesAmount, row, 2);
+        figuresModel.setValueAt(nf.format(salesAmount), row, 2);
     }
 
     /**
@@ -774,21 +894,23 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new HomeScreen().setVisible(true);
             }
         });
     }
@@ -801,6 +923,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
@@ -819,9 +942,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTable salespersonsListTable;
     private javax.swing.JPanel sidePanelAdd;
     private javax.swing.JPanel sidePanelDelete;
+    private javax.swing.JPanel sidePanelEdit;
     private javax.swing.JPanel sidePanelFigures;
     private javax.swing.JPanel sidePanelList;
-    private javax.swing.JPanel sidePanelUpdate;
+    private javax.swing.JLabel totalSalesLabel;
     // End of variables declaration//GEN-END:variables
 
 }

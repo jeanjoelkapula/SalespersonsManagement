@@ -39,6 +39,13 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder>
+              <Color PropertyName="color" blue="33" green="0" red="0" type="rgb"/>
+            </LineBorder>
+          </Border>
+        </Property>
       </Properties>
 
       <Layout>
@@ -179,18 +186,18 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="IDField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lastNameField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="telephoneField" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
+                              <Component id="deletePaneID" alignment="0" max="32767" attributes="0"/>
+                              <Component id="deletePaneFirstName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="deletePaneLastName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="deletePaneTelephone" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="54" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="deletePaneCancelButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="delelePaneDeleteButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -200,28 +207,28 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="IDField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="deletePaneID" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="deletePaneFirstName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lastNameField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="deletePaneLastName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="telephoneField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="deletePaneTelephone" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="deleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="deletePaneCancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="delelePaneDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="105" max="32767" attributes="0"/>
                       </Group>
@@ -240,7 +247,7 @@
                     <Property name="text" type="java.lang.String" value="First Name:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="deletePaneFirstName">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="0" type="rgb"/>
@@ -251,6 +258,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="0" type="rgb"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
@@ -264,7 +272,7 @@
                     <Property name="text" type="java.lang.String" value="Last Name:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="lastNameField">
+                <Component class="javax.swing.JTextField" name="deletePaneLastName">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="0" type="rgb"/>
@@ -275,6 +283,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="0" type="rgb"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
@@ -288,7 +297,7 @@
                     <Property name="text" type="java.lang.String" value="Telephone:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="telephoneField">
+                <Component class="javax.swing.JTextField" name="deletePaneTelephone">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="0" type="rgb"/>
@@ -299,6 +308,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="0" type="rgb"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
@@ -312,7 +322,7 @@
                     <Property name="text" type="java.lang.String" value="ID Number:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="IDField">
+                <Component class="javax.swing.JTextField" name="deletePaneID">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="0" type="rgb"/>
@@ -323,9 +333,10 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="0" type="rgb"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="deleteButton">
+                <Component class="javax.swing.JButton" name="delelePaneDeleteButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -338,8 +349,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Delete"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="delelePaneDeleteButtonActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="cancelButton">
+                <Component class="javax.swing.JButton" name="deletePaneCancelButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="33" red="0" type="rgb"/>
@@ -352,6 +366,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Cancel"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePaneCancelButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -383,7 +400,7 @@
                           <Component id="jPanel4" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="LogInButton" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="OKButton" min="-2" pref="64" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -394,7 +411,7 @@
                               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="LogInButton" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="OKButton" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace pref="82" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -460,7 +477,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="LogInButton">
+                    <Component class="javax.swing.JButton" name="OKButton">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="0" red="0" type="rgb"/>
@@ -479,6 +496,9 @@
                           <Color id="Hand Cursor"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OKButtonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -511,7 +531,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="LogInButton1" min="-2" pref="149" max="-2" attributes="0"/>
+                                  <Component id="updateButton" min="-2" pref="149" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -527,11 +547,11 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField6" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField7" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField8" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
+                                          <Component id="editPaneID" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="editPaneFirstName" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="editPaneLastName" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="editPaneTelephone" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="editPaneSalesAmount" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -544,31 +564,31 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField9" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="editPaneID" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel12" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField3" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="editPaneFirstName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="editPaneLastName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel9" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="editPaneTelephone" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel10" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField8" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="editPaneSalesAmount" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jLabel11" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="LogInButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="updateButton" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace pref="49" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -586,7 +606,7 @@
                         <Property name="text" type="java.lang.String" value="First Name:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField3">
+                    <Component class="javax.swing.JTextField" name="editPaneFirstName">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -610,7 +630,7 @@
                         <Property name="text" type="java.lang.String" value="Last Name:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField6">
+                    <Component class="javax.swing.JTextField" name="editPaneLastName">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -634,7 +654,7 @@
                         <Property name="text" type="java.lang.String" value="Telephone:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField7">
+                    <Component class="javax.swing.JTextField" name="editPaneTelephone">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -658,7 +678,7 @@
                         <Property name="text" type="java.lang.String" value="Sales Amount:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField8">
+                    <Component class="javax.swing.JTextField" name="editPaneSalesAmount">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -682,7 +702,7 @@
                         <Property name="text" type="java.lang.String" value="ID Number:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField9">
+                    <Component class="javax.swing.JTextField" name="editPaneID">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -693,9 +713,10 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="0" type="rgb"/>
                         </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="LogInButton1">
+                    <Component class="javax.swing.JButton" name="updateButton">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="0" red="0" type="rgb"/>
@@ -717,6 +738,9 @@
                           <Color id="Hand Cursor"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

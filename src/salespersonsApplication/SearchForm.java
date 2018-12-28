@@ -1,5 +1,9 @@
-
 package salespersonsApplication;
+
+import java.util.ArrayList;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -7,12 +11,17 @@ package salespersonsApplication;
  */
 public class SearchForm extends javax.swing.JFrame {
 
+    //declaratio
+    private HomeScreen mainScreen;
+    private int searchResult;
+
     /**
      * Creates new form SearchForm
      */
-    public SearchForm() {
+    public SearchForm(HomeScreen home) {
         initComponents();
         setLocationRelativeTo(null);
+        mainScreen = home;
     }
 
     /**
@@ -38,6 +47,7 @@ public class SearchForm extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51)));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -113,13 +123,18 @@ public class SearchForm extends javax.swing.JFrame {
         searchButton.setText("Search");
         searchButton.setBorder(null);
         searchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -170,8 +185,98 @@ public class SearchForm extends javax.swing.JFrame {
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+
+        // declarations
+        int EnteredID = Integer.parseInt(searchField.getText().trim());
+        searchResult = searchID(EnteredID);
+        ArrayList<Salesperson> list = mainScreen.getSalespersonsList();
+        SearchResultForm searchResultForm = new SearchResultForm(this);
+        JLayeredPane layeredPane = searchResultForm.getLayeredPane();
+        JPanel deletePanel = searchResultForm.getDeletePanel();
+        JPanel doesNotExistPanel = searchResultForm.getDoesNotExistPanel();
+        JPanel editPanel = searchResultForm.getEditDataPanel();
+        JTextField IDField;
+        JTextField firstNameField;
+        JTextField lastNameField;
+        JTextField telephoneField;
+        JTextField salesAmountField;
+
+        if (searchResult >= 0) {
+            if (mainScreen.isSidePanelDeleteSelected()) {
+                IDField = searchResultForm.getDeletePaneID();
+                firstNameField = searchResultForm.getDeletePaneFirstName();
+                lastNameField = searchResultForm.getDeletePaneLastName();
+                telephoneField = searchResultForm.getDeletePaneTelephone();
+
+                //set panel
+                layeredPane.removeAll();
+                layeredPane.add(deletePanel);
+                searchResultForm.repaint();
+                searchResultForm.revalidate();
+                telephoneField.setText(list.get(searchResult).getTelephone());
+            } else {
+                IDField = searchResultForm.getEditPaneID();
+                firstNameField = searchResultForm.getEditPaneFirstName();
+                lastNameField = searchResultForm.getEditPaneLastName();
+                telephoneField = searchResultForm.getEditPaneTelephone();
+                salesAmountField = searchResultForm.getEditPaneSalesAmount();
+
+                //set panel
+                layeredPane.removeAll();
+                layeredPane.add(editPanel);
+                searchResultForm.repaint();
+                searchResultForm.revalidate();
+                salesAmountField.setText(list.get(searchResult).getSalesAmount() + "");
+                telephoneField.setText(mainScreen.removeTelephoneFormat(list.get(searchResult).getTelephone()));
+            }
+
+            //set remaining fields
+            IDField.setText(list.get(searchResult).getID() + "");
+            firstNameField.setText(list.get(searchResult).getFirstName());
+            lastNameField.setText(list.get(searchResult).getLastName());
+
+        } else {
+            layeredPane.removeAll();
+            layeredPane.add(doesNotExistPanel);
+            searchResultForm.repaint();
+            searchResultForm.revalidate();
+        }
+
+        searchResultForm.setVisible(true);
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    public int searchID(int ID) {
+        //declarations
+        boolean found = false;
+        int position = -1;
+        ArrayList<Salesperson> list = mainScreen.getSalespersonsList();
+        for (int index = 0; index < list.size() && found == false; index++) {
+            if (ID == list.get(index).getID()) {
+                found = true;
+                position = index;
+            }
+
+        }
+
+        return position;
+    }
+
+    public int getResultPosition() {
+
+        return searchResult;
+    }
+
+    public HomeScreen getMainScreen() {
+        return mainScreen;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
 
     /**
      * @param args the command line arguments
@@ -203,7 +308,7 @@ public class SearchForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchForm().setVisible(true);
+                //new SearchForm().setVisible(true);
             }
         });
     }

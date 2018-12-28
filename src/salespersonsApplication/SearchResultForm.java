@@ -1,5 +1,10 @@
-
 package salespersonsApplication;
+
+import java.util.ArrayList;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -7,15 +12,19 @@ package salespersonsApplication;
  */
 public class SearchResultForm extends javax.swing.JFrame {
 
-   
+    //declaration
+    private SearchForm searchForm;
+
     /**
      * Creates new form SearchResultForm
      */
-    public SearchResultForm() {
+    public SearchResultForm(SearchForm searchForm) {
         initComponents();
         setLocationRelativeTo(null);
         layeredPane.removeAll();
         layeredPane.add(editDataPanel);
+        this.searchForm = searchForm;
+        searchForm.setVisible(false);
     }
 
     /**
@@ -34,39 +43,40 @@ public class SearchResultForm extends javax.swing.JFrame {
         layeredPane = new javax.swing.JLayeredPane();
         deletePanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        deletePaneFirstName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        lastNameField = new javax.swing.JTextField();
+        deletePaneLastName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        telephoneField = new javax.swing.JTextField();
+        deletePaneTelephone = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        IDField = new javax.swing.JTextField();
-        deleteButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        deletePaneID = new javax.swing.JTextField();
+        delelePaneDeleteButton = new javax.swing.JButton();
+        deletePaneCancelButton = new javax.swing.JButton();
         doesNotExistPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        LogInButton = new javax.swing.JButton();
+        OKButton = new javax.swing.JButton();
         editDataPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        editPaneFirstName = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        editPaneLastName = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        editPaneTelephone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        editPaneSalesAmount = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        LogInButton1 = new javax.swing.JButton();
+        editPaneID = new javax.swing.JTextField();
+        updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51)));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
 
@@ -110,43 +120,57 @@ public class SearchResultForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("First Name:");
 
-        jTextField2.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneFirstName.setBackground(new java.awt.Color(0, 0, 51));
+        deletePaneFirstName.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        deletePaneFirstName.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneFirstName.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Last Name:");
 
-        lastNameField.setBackground(new java.awt.Color(0, 0, 51));
-        lastNameField.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        lastNameField.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneLastName.setBackground(new java.awt.Color(0, 0, 51));
+        deletePaneLastName.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        deletePaneLastName.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneLastName.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Telephone:");
 
-        telephoneField.setBackground(new java.awt.Color(0, 0, 51));
-        telephoneField.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        telephoneField.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneTelephone.setBackground(new java.awt.Color(0, 0, 51));
+        deletePaneTelephone.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        deletePaneTelephone.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneTelephone.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("ID Number:");
 
-        IDField.setBackground(new java.awt.Color(0, 0, 51));
-        IDField.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        IDField.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneID.setBackground(new java.awt.Color(0, 0, 51));
+        deletePaneID.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        deletePaneID.setForeground(new java.awt.Color(0, 255, 255));
+        deletePaneID.setEnabled(false);
 
-        deleteButton.setBackground(new java.awt.Color(255, 0, 0));
-        deleteButton.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteButton.setText("Delete");
+        delelePaneDeleteButton.setBackground(new java.awt.Color(255, 0, 0));
+        delelePaneDeleteButton.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        delelePaneDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        delelePaneDeleteButton.setText("Delete");
+        delelePaneDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delelePaneDeleteButtonActionPerformed(evt);
+            }
+        });
 
-        cancelButton.setBackground(new java.awt.Color(0, 51, 255));
-        cancelButton.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        cancelButton.setText("Cancel");
+        deletePaneCancelButton.setBackground(new java.awt.Color(0, 51, 255));
+        deletePaneCancelButton.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        deletePaneCancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        deletePaneCancelButton.setText("Cancel");
+        deletePaneCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePaneCancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout deletePanelLayout = new javax.swing.GroupLayout(deletePanel);
         deletePanel.setLayout(deletePanelLayout);
@@ -162,16 +186,16 @@ public class SearchResultForm extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(IDField)
-                    .addComponent(jTextField2)
-                    .addComponent(lastNameField)
-                    .addComponent(telephoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deletePaneID)
+                    .addComponent(deletePaneFirstName)
+                    .addComponent(deletePaneLastName)
+                    .addComponent(deletePaneTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deletePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelButton)
+                .addComponent(deletePaneCancelButton)
                 .addGap(30, 30, 30)
-                .addComponent(deleteButton)
+                .addComponent(delelePaneDeleteButton)
                 .addGap(42, 42, 42))
         );
         deletePanelLayout.setVerticalGroup(
@@ -179,24 +203,24 @@ public class SearchResultForm extends javax.swing.JFrame {
             .addGroup(deletePanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletePaneID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletePaneFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletePaneLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telephoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletePaneTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(deletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deletePaneCancelButton)
+                    .addComponent(delelePaneDeleteButton))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
 
@@ -233,12 +257,17 @@ public class SearchResultForm extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        LogInButton.setBackground(new java.awt.Color(0, 0, 153));
-        LogInButton.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
-        LogInButton.setForeground(new java.awt.Color(255, 255, 255));
-        LogInButton.setText("OK");
-        LogInButton.setBorder(null);
-        LogInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        OKButton.setBackground(new java.awt.Color(0, 0, 153));
+        OKButton.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
+        OKButton.setForeground(new java.awt.Color(255, 255, 255));
+        OKButton.setText("OK");
+        OKButton.setBorder(null);
+        OKButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        OKButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -247,7 +276,7 @@ public class SearchResultForm extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(197, 197, 197))
         );
         jPanel3Layout.setVerticalGroup(
@@ -256,7 +285,7 @@ public class SearchResultForm extends javax.swing.JFrame {
                 .addGap(88, 88, 88)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(82, Short.MAX_VALUE))
         );
 
@@ -277,49 +306,55 @@ public class SearchResultForm extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("First Name:");
 
-        jTextField3.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneFirstName.setBackground(new java.awt.Color(0, 0, 51));
+        editPaneFirstName.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        editPaneFirstName.setForeground(new java.awt.Color(0, 255, 255));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Last Name:");
 
-        jTextField6.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneLastName.setBackground(new java.awt.Color(0, 0, 51));
+        editPaneLastName.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        editPaneLastName.setForeground(new java.awt.Color(0, 255, 255));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Telephone:");
 
-        jTextField7.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneTelephone.setBackground(new java.awt.Color(0, 0, 51));
+        editPaneTelephone.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        editPaneTelephone.setForeground(new java.awt.Color(0, 255, 255));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Sales Amount:");
 
-        jTextField8.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField8.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneSalesAmount.setBackground(new java.awt.Color(0, 0, 51));
+        editPaneSalesAmount.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        editPaneSalesAmount.setForeground(new java.awt.Color(0, 255, 255));
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("ID Number:");
 
-        jTextField9.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField9.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneID.setBackground(new java.awt.Color(0, 0, 51));
+        editPaneID.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        editPaneID.setForeground(new java.awt.Color(0, 255, 255));
+        editPaneID.setEnabled(false);
 
-        LogInButton1.setBackground(new java.awt.Color(0, 0, 153));
-        LogInButton1.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
-        LogInButton1.setForeground(new java.awt.Color(255, 255, 255));
-        LogInButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salespersonsApplication/images/icons8_Change_User_48px_1.png"))); // NOI18N
-        LogInButton1.setText("Update");
-        LogInButton1.setBorder(null);
-        LogInButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateButton.setBackground(new java.awt.Color(0, 0, 153));
+        updateButton.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salespersonsApplication/images/icons8_Change_User_48px_1.png"))); // NOI18N
+        updateButton.setText("Update");
+        updateButton.setBorder(null);
+        updateButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -327,7 +362,7 @@ public class SearchResultForm extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LogInButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -340,11 +375,11 @@ public class SearchResultForm extends javax.swing.JFrame {
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField9)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(editPaneID)
+                            .addComponent(editPaneFirstName)
+                            .addComponent(editPaneLastName)
+                            .addComponent(editPaneTelephone)
+                            .addComponent(editPaneSalesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 52, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -352,26 +387,26 @@ public class SearchResultForm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editPaneID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editPaneFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editPaneLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editPaneTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editPaneSalesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addComponent(LogInButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -445,9 +480,132 @@ public class SearchResultForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-
-       
+        this.dispose();
+        searchForm.setVisible(true);
+        searchForm.getSearchField().setText("");
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void delelePaneDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delelePaneDeleteButtonActionPerformed
+        // TODO add your handling code here:
+        int position = searchForm.getResultPosition();
+        int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
+        
+        if (selection == JOptionPane.YES_OPTION) {
+            if (position > 0) {
+                searchForm.getMainScreen().deleteRecord(position);
+                CompletedWindow completed = new CompletedWindow();
+                this.dispose();
+                searchForm.setVisible(true);
+                completed.setVisible(true);
+
+            }
+        }
+
+
+    }//GEN-LAST:event_delelePaneDeleteButtonActionPerformed
+
+    private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        searchForm.setVisible(true);
+        searchForm.getSearchField().setText("");
+    }//GEN-LAST:event_OKButtonActionPerformed
+
+    private void deletePaneCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePaneCancelButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        searchForm.setVisible(true);
+        searchForm.getSearchField().setText("");
+    }//GEN-LAST:event_deletePaneCancelButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // declaration
+        InputValidation validation = new InputValidation(editPaneFirstName, editPaneLastName, editPaneTelephone, editPaneSalesAmount);
+        String firstName;
+        String lastName;
+        String telephone;
+        double salesAmount;
+        int result;
+        int selection;
+
+        if (validation.isInputValid()) {
+            firstName = editPaneFirstName.getText().trim();
+            lastName = editPaneLastName.getText().trim();
+            telephone = editPaneTelephone.getText().trim();
+            salesAmount = Double.parseDouble(editPaneSalesAmount.getText().trim());
+            result = searchForm.getResultPosition();
+            selection = JOptionPane.showConfirmDialog(null, "Are you you want to update the details of the record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
+
+            if (selection == JOptionPane.YES_OPTION) {
+                if (result > 0) {
+                    searchForm.getMainScreen().editRecord(result, firstName, lastName, telephone, salesAmount);
+                    CompletedWindow completed = new CompletedWindow();
+                    this.dispose();
+                    searchForm.setVisible(true);
+                    searchForm.getSearchField().setText("");
+                    completed.setVisible(true);
+
+                }
+
+            }
+        } else {
+            validation.displayErrorMessage();
+        }
+
+
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    public JLayeredPane getLayeredPane() {
+        return layeredPane;
+    }
+
+    public JTextField getDeletePaneID() {
+        return deletePaneID;
+    }
+
+    public JTextField getDeletePaneFirstName() {
+        return deletePaneFirstName;
+    }
+
+    public JTextField getDeletePaneLastName() {
+        return deletePaneLastName;
+    }
+
+    public JTextField getDeletePaneTelephone() {
+        return deletePaneTelephone;
+    }
+
+    public JPanel getDeletePanel() {
+        return deletePanel;
+    }
+
+    public JPanel getDoesNotExistPanel() {
+        return doesNotExistPanel;
+    }
+
+    public JPanel getEditDataPanel() {
+        return editDataPanel;
+    }
+
+    public JTextField getEditPaneID() {
+        return editPaneID;
+    }
+
+    public JTextField getEditPaneFirstName() {
+        return editPaneFirstName;
+    }
+
+    public JTextField getEditPaneLastName() {
+        return editPaneLastName;
+    }
+
+    public JTextField getEditPaneTelephone() {
+        return editPaneTelephone;
+    }
+
+    public JTextField getEditPaneSalesAmount() {
+        return editPaneSalesAmount;
+    }
 
     /**
      * @param args the command line arguments
@@ -479,20 +637,27 @@ public class SearchResultForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchResultForm().setVisible(true);
+                // new SearchResultForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField IDField;
-    private javax.swing.JButton LogInButton;
-    private javax.swing.JButton LogInButton1;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton OKButton;
+    private javax.swing.JButton delelePaneDeleteButton;
+    private javax.swing.JButton deletePaneCancelButton;
+    private javax.swing.JTextField deletePaneFirstName;
+    private javax.swing.JTextField deletePaneID;
+    private javax.swing.JTextField deletePaneLastName;
+    private javax.swing.JTextField deletePaneTelephone;
     private javax.swing.JPanel deletePanel;
     private javax.swing.JPanel doesNotExistPanel;
     private javax.swing.JPanel editDataPanel;
+    private javax.swing.JTextField editPaneFirstName;
+    private javax.swing.JTextField editPaneID;
+    private javax.swing.JTextField editPaneLastName;
+    private javax.swing.JTextField editPaneSalesAmount;
+    private javax.swing.JTextField editPaneTelephone;
     private javax.swing.JLabel headingLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -511,14 +676,7 @@ public class SearchResultForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField lastNameField;
     private javax.swing.JLayeredPane layeredPane;
-    private javax.swing.JTextField telephoneField;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
