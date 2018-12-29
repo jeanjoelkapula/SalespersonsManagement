@@ -31,6 +31,7 @@ public class HomeScreen extends javax.swing.JFrame {
     NumberFormat nf = NumberFormat.getCurrencyInstance();
     DecimalFormatSymbols dfs = new DecimalFormatSymbols();
     SearchForm searchForm;
+    AddSalespersonForm addForm;
     private boolean isDeletePanelSelected = false;
     private boolean isEditPanelSelected = false;
 
@@ -629,8 +630,8 @@ public class HomeScreen extends javax.swing.JFrame {
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelEdit.setBackground(unselectedPanelColor);
 
-        AddSalespersonForm add = new AddSalespersonForm(this);
-        add.setVisible(true);
+        addForm = new AddSalespersonForm(this);
+        addForm.setVisible(true);
     }//GEN-LAST:event_sidePanelAddMouseClicked
 
     private void sidePanelFiguresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelFiguresMouseClicked
@@ -681,9 +682,16 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_sidePanelEditMouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
+        // TODO addForm your handling code here:
         writeToFile();
         this.dispose();
+        if (searchForm.isVisible()) {
+            searchForm.dispose();
+        }
+
+        if (addForm.isVisible()) {
+            addForm.dispose();
+        }
         LoginForm login = new LoginForm();
         login.setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
@@ -724,6 +732,18 @@ public class HomeScreen extends javax.swing.JFrame {
 
     public void setEditPanelSelected(boolean value) {
         isEditPanelSelected = value;
+    }
+
+    public int getSalespersonsCounter() {
+        return salespersonsCounter;
+    }
+
+    public JTable getListTable() {
+        return salespersonsListTable;
+    }
+
+    public JTable getFiguresTable() {
+        return salesFiguresTable;
     }
 
     public boolean isTelephoneFormatted(String telephone) {
