@@ -205,7 +205,7 @@ public class SearchForm extends javax.swing.JFrame {
         JTextField telephoneField;
         JTextField salesAmountField;
 
-        if (searchResult >= 0) {
+        if (searchResult > -1) {
             if (mainScreen.isSidePanelDeleteSelected()) {
                 IDField = searchResultForm.getDeletePaneID();
                 firstNameField = searchResultForm.getDeletePaneFirstName();

@@ -212,6 +212,7 @@ public class AddSalespersonForm extends javax.swing.JFrame {
             firstNameField.setText("");
             lastNameField.setText("");
             telephoneField.setText("");
+            salesAmountField.setText("");
             completed.setVisible(true);
         } else {
             validation.displayErrorMessage();

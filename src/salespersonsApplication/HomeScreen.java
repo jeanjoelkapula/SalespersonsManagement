@@ -798,7 +798,7 @@ public class HomeScreen extends javax.swing.JFrame {
         int ID = generateID();
         salespersonsList.add(new Salesperson(ID, firstName, lastName, telephone, salesAmount));
         checkTablesListCount();
-        setRow(salespersonsCounter, ID, firstName, lastName, telephone);
+        setRow(salespersonsCounter, ID, firstName, lastName, formatTelephone(telephone));
         setRow(salespersonsCounter, ID, lastName, salesAmount);
         salespersonsListTable.setModel(listModel);
         salesFiguresTable.setModel(figuresModel);
@@ -827,7 +827,7 @@ public class HomeScreen extends javax.swing.JFrame {
         salespersonsList.get(position).setLastName(lastName);
         salespersonsList.get(position).setTelephone(formatTelephone(telephone));
         salespersonsList.get(position).setSalesAmount(newSalesAmount);
-        setRow(position, ID, firstName, lastName, telephone);
+        setRow(position, ID, firstName, lastName, formatTelephone(telephone));
         setRow(position, ID, lastName, newSalesAmount);
         if (currentSalesAmount > newSalesAmount) {
             totalSales -= currentSalesAmount - newSalesAmount;

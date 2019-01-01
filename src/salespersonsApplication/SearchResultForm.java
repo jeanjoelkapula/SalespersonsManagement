@@ -537,7 +537,7 @@ public class SearchResultForm extends javax.swing.JFrame {
             selection = JOptionPane.showConfirmDialog(null, "Are you you want to update the details of the record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
 
             if (selection == JOptionPane.YES_OPTION) {
-                if (result > 0) {
+                if (result > -1) {
                     searchForm.getMainScreen().editRecord(result, firstName, lastName, telephone, salesAmount);
                     CompletedWindow completed = new CompletedWindow();
                     this.dispose();
