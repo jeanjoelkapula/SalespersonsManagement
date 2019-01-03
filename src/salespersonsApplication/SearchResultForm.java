@@ -489,7 +489,7 @@ public class SearchResultForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int position = searchForm.getResultPosition();
         int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
-        
+
         if (selection == JOptionPane.YES_OPTION) {
             if (position > 0) {
                 searchForm.getMainScreen().deleteRecord(position);
@@ -534,18 +534,15 @@ public class SearchResultForm extends javax.swing.JFrame {
             telephone = editPaneTelephone.getText().trim();
             salesAmount = Double.parseDouble(editPaneSalesAmount.getText().trim());
             result = searchForm.getResultPosition();
-            selection = JOptionPane.showConfirmDialog(null, "Are you you want to update the details of the record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
+            selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to update the details of the record?", "Confirmation Dialog", JOptionPane.YES_NO_OPTION);
 
             if (selection == JOptionPane.YES_OPTION) {
-                if (result > 0) {
-                    searchForm.getMainScreen().editRecord(result, firstName, lastName, telephone, salesAmount);
-                    CompletedWindow completed = new CompletedWindow();
-                    this.dispose();
-                    searchForm.setVisible(true);
-                    searchForm.getSearchField().setText("");
-                    completed.setVisible(true);
-
-                }
+                searchForm.getMainScreen().editRecord(result, firstName, lastName, telephone, salesAmount);
+                CompletedWindow completed = new CompletedWindow();
+                this.dispose();
+                searchForm.setVisible(true);
+                searchForm.getSearchField().setText("");
+                completed.setVisible(true);
 
             }
         } else {

@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class HomeScreen extends javax.swing.JFrame {
 
     //declarations
+    LoginForm loginForm;
     private ArrayList<Salesperson> salespersonsList = new ArrayList();
     private int salespersonsCounter = 0;
     private double totalSales = 0;
@@ -42,15 +43,20 @@ public class HomeScreen extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public HomeScreen() {
+    public HomeScreen(LoginForm login) {
         initComponents();
+        loginForm = login;
+        loginForm.setVisible(false);
         setLocationRelativeTo(null);
+        setVisible(true);
         readSalespersonsFile();
         dfs.setCurrencySymbol("$");
         dfs.setGroupingSeparator(' ');
         dfs.setDecimalSeparator('.');
         ((DecimalFormat) (nf)).setDecimalFormatSymbols(dfs);
+        addForm = new AddSalespersonForm(this);
         searchForm = new SearchForm(this);
+
     }
 
     /**
@@ -80,7 +86,7 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         minLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        closeLabel = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         salespersonsListPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -247,16 +253,17 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
         jLabel2.setText("Log out");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salespersonsApplication/images/icons8_Male_User_50px.png"))); // NOI18N
         jLabel11.setText("  ");
@@ -268,8 +275,7 @@ public class HomeScreen extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,13 +332,13 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("X");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        closeLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        closeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        closeLabel.setText("X");
+        closeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        closeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                closeLabelMouseClicked(evt);
             }
         });
 
@@ -346,7 +352,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(minLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(closeLabel)
                 .addGap(21, 21, 21))
         );
         jPanel5Layout.setVerticalGroup(
@@ -355,7 +361,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(minLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(closeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
@@ -568,11 +574,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 ID = Integer.parseInt(fields[0].trim());
                 firstName = fields[1].trim();
                 lastName = fields[2].trim();
-                if (isTelephoneFormatted(fields[3])) {
-                    telephone = fields[3].trim();
-                } else {
-                    telephone = formatTelephone(fields[3].trim());
-                }
+                telephone = formatTelephone(fields[3]);
                 salesAmount = Double.parseDouble(fields[4].trim());
 
                 //populate ArrayList, salesperson list and sales figures tables
@@ -608,7 +610,7 @@ public class HomeScreen extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_minLabelMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
         //declaration
         int confirmation;
 
@@ -619,7 +621,7 @@ public class HomeScreen extends javax.swing.JFrame {
             System.exit(0);
 
         }
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_closeLabelMouseClicked
 
     private void sidePanelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelAddMouseClicked
 
@@ -630,7 +632,6 @@ public class HomeScreen extends javax.swing.JFrame {
         sidePanelDelete.setBackground(unselectedPanelColor);
         sidePanelEdit.setBackground(unselectedPanelColor);
 
-        addForm = new AddSalespersonForm(this);
         addForm.setVisible(true);
     }//GEN-LAST:event_sidePanelAddMouseClicked
 
@@ -681,21 +682,6 @@ public class HomeScreen extends javax.swing.JFrame {
         searchForm.getSearchField().setText("");
     }//GEN-LAST:event_sidePanelEditMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO addForm your handling code here:
-        writeToFile();
-        this.dispose();
-        if (searchForm.isVisible()) {
-            searchForm.dispose();
-        }
-
-        if (addForm.isVisible()) {
-            addForm.dispose();
-        }
-        LoginForm login = new LoginForm();
-        login.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
-
     private void sidePanelListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelListMouseClicked
 
         //Set Side Panel Color 
@@ -713,6 +699,19 @@ public class HomeScreen extends javax.swing.JFrame {
         this.revalidate();
 
     }//GEN-LAST:event_sidePanelListMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+        writeToFile();
+
+        searchForm.setVisible(false);
+        addForm.setVisible(false);
+
+        loginForm.setVisible(true);
+        this.dispose();
+        this.pack();
+
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     public ArrayList<Salesperson> getSalespersonsList() {
         return salespersonsList;
@@ -750,10 +749,10 @@ public class HomeScreen extends javax.swing.JFrame {
 
         //declaration
         boolean formatted = false;
-        int digitsNumber = 15;
+        int digitsNumber = 12;
 
-        if (telephone.length() == digitsNumber) {
-            if (telephone.charAt(3) == ' ' && telephone.charAt(6) == ' ' && telephone.charAt(10) == ' ') {
+        if (telephone.trim().length() == digitsNumber) {
+            if (telephone.charAt(3) == ' ' && telephone.charAt(7) == ' ') {
                 formatted = true;
             }
 
@@ -767,9 +766,10 @@ public class HomeScreen extends javax.swing.JFrame {
         //declaration
         StringBuilder phone = new StringBuilder(number);
 
-        phone.insert(3, " ");
-        phone.insert(6, " ");
-        phone.insert(10, " ");
+        if (!isTelephoneFormatted(number)) {
+            phone.insert(3, " ");
+            phone.insert(7, " ");
+        }
 
         return phone.toString();
     }
@@ -779,8 +779,7 @@ public class HomeScreen extends javax.swing.JFrame {
         StringBuilder phone = new StringBuilder(number);
 
         phone.deleteCharAt(3);
-        phone.deleteCharAt(5);
-        phone.deleteCharAt(8);
+        phone.deleteCharAt(6);
 
         return phone.toString();
 
@@ -796,9 +795,9 @@ public class HomeScreen extends javax.swing.JFrame {
 
     public void addRecord(String firstName, String lastName, String telephone, double salesAmount) {
         int ID = generateID();
-        salespersonsList.add(new Salesperson(ID, firstName, lastName, telephone, salesAmount));
+        salespersonsList.add(new Salesperson(ID, firstName, lastName, formatTelephone(telephone), salesAmount));
         checkTablesListCount();
-        setRow(salespersonsCounter, ID, firstName, lastName, telephone);
+        setRow(salespersonsCounter, ID, firstName, lastName, formatTelephone(telephone));
         setRow(salespersonsCounter, ID, lastName, salesAmount);
         salespersonsListTable.setModel(listModel);
         salesFiguresTable.setModel(figuresModel);
@@ -827,7 +826,7 @@ public class HomeScreen extends javax.swing.JFrame {
         salespersonsList.get(position).setLastName(lastName);
         salespersonsList.get(position).setTelephone(formatTelephone(telephone));
         salespersonsList.get(position).setSalesAmount(newSalesAmount);
-        setRow(position, ID, firstName, lastName, telephone);
+        setRow(position, ID, firstName, lastName, formatTelephone(telephone));
         setRow(position, ID, lastName, newSalesAmount);
         if (currentSalesAmount > newSalesAmount) {
             totalSales -= currentSalesAmount - newSalesAmount;
@@ -930,18 +929,18 @@ public class HomeScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeScreen().setVisible(true);
+                //new HomeScreen().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel closeLabel;
     private javax.swing.JLabel figuresPanelHeading;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
