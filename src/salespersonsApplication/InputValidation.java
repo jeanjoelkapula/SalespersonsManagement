@@ -54,13 +54,21 @@ public class InputValidation {
 
     private void validateTelephoneFieldContent() {
 
+        //declaration
+        boolean isCharDigit = true;
+
         if (telephoneField.getText().trim().length() == 12) {
-            if (!telephoneField.getText().trim().substring(0, 3).equals("+27")) {
-                accumulateInputResultMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
-            }
-        } else {
-            accumulateInputResultMessage("\n* The telephone number must start with the country code (+27) followed by 9 digits (+27815645344).");
+            accumulateInputResultMessage("\n* The telephone number is a 10-digit number(0815645344).");
         }
+
+        for (int index = 0; index < telephoneField.getText().trim().length() && isCharDigit == true; ++index) {
+
+            if (!Character.isDigit(telephoneField.getText().trim().charAt(index))) {
+                isCharDigit = false;
+                accumulateInputResultMessage("\n* The telephone number field can only contain digits");
+            }
+        }
+
     }
 
     private void validateSalesAmountFieldContent() {

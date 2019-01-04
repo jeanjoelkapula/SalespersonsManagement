@@ -185,7 +185,7 @@ public class SearchForm extends javax.swing.JFrame {
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -217,7 +217,7 @@ public class SearchForm extends javax.swing.JFrame {
                 layeredPane.add(deletePanel);
                 searchResultForm.repaint();
                 searchResultForm.revalidate();
-                telephoneField.setText(list.get(searchResult).getTelephone());
+                telephoneField.setText(mainScreen.removeTelephoneFormat(list.get(searchResult).getTelephone()));
             } else {
                 IDField = searchResultForm.getEditPaneID();
                 firstNameField = searchResultForm.getEditPaneFirstName();
@@ -246,6 +246,7 @@ public class SearchForm extends javax.swing.JFrame {
             searchResultForm.revalidate();
         }
 
+        searchField.setText("");
         searchResultForm.setVisible(true);
     }//GEN-LAST:event_searchButtonActionPerformed
 
