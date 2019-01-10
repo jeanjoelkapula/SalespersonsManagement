@@ -57,7 +57,7 @@ public class InputValidation {
         //declaration
         boolean isCharDigit = true;
 
-        if (telephoneField.getText().trim().length() == 12) {
+        if (telephoneField.getText().trim().length() != 10) {
             accumulateInputResultMessage("\n* The telephone number is a 10-digit number(0815645344).");
         }
 
